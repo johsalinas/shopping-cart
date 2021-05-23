@@ -46,4 +46,4 @@ const discounts = [
   },
 ];
 
-module.exports = discounts;
+export default discounts;

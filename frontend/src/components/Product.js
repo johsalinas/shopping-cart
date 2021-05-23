@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Row,
   Col,
-  Image,
   ListGroup,
   ListGroupItem,
   Card,
@@ -32,6 +31,9 @@ const Product = ({ product, history }) => {
             </a>
             <Card.Text as="h3">${product.price}</Card.Text>
           </ListGroupItem>
+          <Card.Subtitle className="mb-2 text-muted">
+            {product.brand}
+          </Card.Subtitle>
           <ListGroup.Item>
             <Row>
               <Col>Cantidad: </Col>
