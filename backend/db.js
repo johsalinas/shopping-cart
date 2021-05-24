@@ -4,7 +4,6 @@ dotenv.config();
 const db = process.env.MONGOURI.toString();
 
 const connectDB = async () => {
-  console.log(db);
   try {
     await mongoose.connect(db, {
       useNewUrlParser: true,

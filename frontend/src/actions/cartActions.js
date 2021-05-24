@@ -3,7 +3,14 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`);
-  const discount = await axios.get(`/api/brands/${data.brand}`);
+  const { data: data2 } = await axios.get(`/api/brands/${data.brand}`);
+
+  let discount = 0;
+  let threshold = 0;
+  if (data2) {
+    discount = data2.discount;
+    threshold = data2.threshold;
+  }
 
   dispatch({
     type: CART_ADD_ITEM,
@@ -14,7 +21,9 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       image: data.image,
       price: data.price,
       qty,
-      discount: discount.data,
+      discount,
+      threshold,
+      subtotal: data.price * qty,
     },
   });
 

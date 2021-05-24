@@ -11,10 +11,19 @@ const app = express();
 connectDB();
 
 app.use(express.json({ extended: false }));
-app.get("/", (req, res) => res.send("API corriendo..."));
 
 app.use("/api/products", productRouter);
 app.use("/api/brands", discountRouter);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => res.send("API corriendo..."));
+}
 
 const PORT = process.env.PORT || 5000;
 const NODE_ENV = process.env.NODE_ENV;

@@ -24,7 +24,7 @@ const Product = ({ product, history }) => {
       <Card.Body>
         <ListGroup variant="flush">
           <ListGroupItem>
-            <a href={`/product/${product.id}`}>
+            <a href="/#">
               <Card.Title as="div">
                 <strong>{product.description}</strong>
               </Card.Title>
