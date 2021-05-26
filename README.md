@@ -9,4 +9,4 @@ docker-compose build
 docker-compose up
 
 #App desplegada en heroku:
-https://dashboard.heroku.com/apps/shopping-car-walmart
+https://shopping-car-walmart.herokuapp.com
