@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Form, Button } from "react-bootstrap";
@@ -6,10 +6,7 @@ import Message from "../components/Message";
 import Total from "../components/Total";
 import { addToCart, removeFromCart } from "../actions/cartActions";
 
-const CartScreen = ({ match, location, history }) => {
-  const productId = match.params.id;
-  const qty = location.search ? Number(location.search.split("=")[1]) : 1;
-
+const CartScreen = () => {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
@@ -19,21 +16,12 @@ const CartScreen = ({ match, location, history }) => {
     dispatch(removeFromCart(id));
   };
 
-  useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, qty));
-    }
-  }, [dispatch, productId, qty]);
-
   return (
     <Row>
       <Col md={8}>
         <h1>Carrito</h1>
-        <Link to="/">Volver</Link>
         {cartItems.length === 0 ? (
-          <Message>
-            El carrito está vacío. <Link to="/">Volver</Link>
-          </Message>
+          <Message>El carrito está vacío.</Message>
         ) : (
           <ListGroup variant="flush">
             <Row>
@@ -44,7 +32,7 @@ const CartScreen = ({ match, location, history }) => {
               <Col md={1}></Col>
             </Row>
             {cartItems.map((item) => (
-              <ListGroup.Item key={item.product}>
+              <ListGroup.Item variant="dark" key={item.product}>
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.product} fluid rounded />

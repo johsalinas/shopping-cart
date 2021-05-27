@@ -8,17 +8,21 @@ import {
   Button,
   Form,
 } from "react-bootstrap";
+import { addToCart } from "../actions/cartActions";
+import { useDispatch } from "react-redux";
 
-const Product = ({ product, history }) => {
+const Product = ({ product }) => {
+  const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
+
   const addToCartHandler = () => {
-    history.push(`/cart/${product.id}?qty=${qty}`);
+    dispatch(addToCart(product.id, qty));
   };
 
   return (
     <Card className="my-3 p-3 rounded">
       <a href={`/product/${product.id}`}>
-        <Card.Img src={product.image} />
+        <Card.Img src={"https://" + product.image} />
       </a>
 
       <Card.Body>

@@ -79,7 +79,8 @@ const Total = () => {
     );
   }
 
-  const numberOfItems = cartItems.reduce((acc, item) => acc + item.qty, 0);
+  const numberOfItems =
+    cartItems.reduce((acc, item) => acc * 1 + item.qty * 1, 0) * 1;
 
   const subtotal = cartItems
     .reduce((acc, item) => acc + item.qty * item.price, 0)
