@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Router>
       <Header></Header>
-      <Container style={{ overflow: "hidden" }}>
+      <Container>
         <Route path="/" component={HomeScreen} exact></Route>
       </Container>
       <Footer></Footer>

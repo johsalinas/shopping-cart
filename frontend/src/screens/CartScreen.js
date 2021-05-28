@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, ListGroup, Image, Form, Button } from "react-bootstrap";
+import { Image, Form, Button } from "react-bootstrap";
 import Message from "../components/Message";
 import Total from "../components/Total";
 import { addToCart, removeFromCart } from "../actions/cartActions";
@@ -17,30 +16,34 @@ const CartScreen = () => {
   };
 
   return (
-    <Row>
-      <Col md={8}>
+    <div className="cart">
+      <div>
         <h1>Carrito</h1>
         {cartItems.length === 0 ? (
           <Message>El carrito está vacío.</Message>
         ) : (
-          <ListGroup variant="flush">
-            <Row>
-              <Col md={2}></Col>
-              <Col md={4}>description</Col>
-              <Col md={2}>brand</Col>
-              <Col md={2}>price</Col>
-              <Col md={1}></Col>
-            </Row>
+          <div variant="flush">
             {cartItems.map((item) => (
-              <ListGroup.Item variant="dark" key={item.product}>
-                <Row>
-                  <Col md={2}>
-                    <Image src={item.image} alt={item.product} fluid rounded />
-                  </Col>
-                  <Col md={4}>{item.description}</Col>
-                  <Col md={2}>{item.brand}</Col>
-                  <Col md={2}>${item.price}</Col>
-                  <Col md={1}>
+              <div key={item.product}>
+                <div class="row">
+                  <div class="col">
+                    <Image
+                      src={"http://" + item.image}
+                      alt={item.product}
+                      fluid
+                      className="round-img cartImg"
+                    />
+                  </div>
+                  <div class="col">
+                    <h6>{item.description}</h6>
+                  </div>
+                  <div class="col d-none d-sm-block">
+                    <h6>{item.brand}</h6>
+                  </div>
+                  <div class="col">
+                    <h6>${item.price}</h6>
+                  </div>
+                  <div class="col">
                     <Form.Control
                       as="select"
                       value={item.qty}
@@ -56,8 +59,8 @@ const CartScreen = () => {
                         </option>
                       ))}
                     </Form.Control>
-                  </Col>
-                  <Col md={1}>
+                  </div>
+                  <div class="col">
                     <Button
                       type="button"
                       variant="light"
@@ -65,15 +68,15 @@ const CartScreen = () => {
                     >
                       <i className="fas fa-trash"></i>
                     </Button>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
+                  </div>
+                </div>
+              </div>
             ))}
-          </ListGroup>
+          </div>
         )}
-      </Col>
-      <Total></Total>
-    </Row>
+        <Total></Total>
+      </div>
+    </div>
   );
 };
 

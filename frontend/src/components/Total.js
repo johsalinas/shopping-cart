@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Col, Row, ListGroup, Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import clonedeep from "lodash.clonedeep";
 
@@ -55,27 +55,27 @@ const Total = () => {
     );
 
     messageBox = (
-      <Row>
-        <Col md={8}>
+      <div>
+        <div class="row">
           {maxApplicableDiscount > 0 && (
             <h6>
               Se aplicó un descuento de ${maxApplicableDiscount} por haber
               comprado ${threshold} de productos {brand}!
             </h6>
           )}
-        </Col>
-        <Col md={8}>
-          {maxDiscount.discount > 0 &&
-            maxDiscount.threshold - maxDiscount.subtotal >= 0 && (
-              <h6>
-                "Agrega {maxDiscount.threshold - maxDiscount.subtotal} más en
-                productos
-                {" " + maxDiscount.brand} y aprovecha un descuento total de{" "}
-                {maxDiscount.discount} en tu compra!"
-              </h6>
-            )}
-        </Col>
-      </Row>
+          <div class="row">
+            {maxDiscount.discount > 0 &&
+              maxDiscount.threshold - maxDiscount.subtotal >= 0 && (
+                <h6>
+                  Agrega {maxDiscount.threshold - maxDiscount.subtotal} más en
+                  productos
+                  {" " + maxDiscount.brand} y aprovecha un descuento total de{" "}
+                  {maxDiscount.discount} en tu compra!
+                </h6>
+              )}
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -88,29 +88,35 @@ const Total = () => {
 
   const total = subtotal - maxApplicableDiscount;
 
+  const totalBox = (
+    <Fragment>
+      <div>
+        <h6>Subtotal ({numberOfItems}) items</h6>
+        <h6>${subtotal}</h6>
+      </div>
+      <div>
+        <h5>Total</h5>
+        <h5>${total}</h5>
+      </div>
+      <div>
+        <Button
+          type="button"
+          className="btn-block"
+          disabled={cartItems.length === 0}
+        >
+          Proceder al pago
+        </Button>
+      </div>
+    </Fragment>
+  );
+
   return (
-    <Col md={4}>
-      <Card>
-        <ListGroup variant="flush">
-          <ListGroup.Item>
-            <h4>Subtotal ({numberOfItems}) items</h4>${subtotal}
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <h2>Total</h2>${total}
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <Button
-              type="button"
-              className="btn-block"
-              disabled={cartItems.length === 0}
-            >
-              Proceder al pago
-            </Button>
-          </ListGroup.Item>
-        </ListGroup>
-      </Card>
-      <Fragment>{messageBox}</Fragment>
-    </Col>
+    <Fragment>
+      <div className="cart d-flex justify-content-around">
+        {numberOfItems > 0 ? totalBox : <></>}
+      </div>
+      {messageBox}
+    </Fragment>
   );
 };
 

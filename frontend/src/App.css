@@ -298,9 +298,25 @@ button {
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 1;
+  z-index: 4;
   width: 100%;
   top: 0;
+}
+
+.cart {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  display: flex;
+  max-width: 40rem;
+  overflow: auto;
+}
+
+.cartImg {
+  width: 50px;
+}
+
+.total {
+  max-width: 280px;
 }
 
 /* Mobile Styles */
