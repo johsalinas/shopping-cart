@@ -4,12 +4,14 @@ import { Row, Col, CardGroup } from "react-bootstrap";
 import Product from "../components/Product";
 import { listProducts } from "../actions/productActions";
 import CarouselSlider from "../components/Carousel";
+import Message from "../components/Message";
+import Loader from "../components/Loader";
 
-const HomeScreen = ({ history }) => {
+const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
-  const { products } = productList;
+  const { loading, error, products } = productList;
 
   useEffect(() => {
     dispatch(listProducts());
@@ -18,17 +20,23 @@ const HomeScreen = ({ history }) => {
   return (
     <Fragment>
       <CarouselSlider></CarouselSlider>
-
       <h1>Productos</h1>
-      <CardGroup>
-        <Row>
-          {products.map((product) => (
-            <Col key={product.id} sm={12} md={5} lg={4} xl={3}>
-              <Product product={product}></Product>
-            </Col>
-          ))}
-        </Row>
-      </CardGroup>
+
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <CardGroup>
+          <Row>
+            {products.map((product) => (
+              <Col key={product.id} sm={12} md={5} lg={4} xl={3}>
+                <Product product={product}></Product>
+              </Col>
+            ))}
+          </Row>
+        </CardGroup>
+      )}
     </Fragment>
   );
 };

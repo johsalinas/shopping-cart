@@ -1,11 +1,17 @@
 import React, { Fragment, useState } from "react";
 import { Navbar, Button } from "react-bootstrap";
 import CartScreen from "../screens/CartScreen";
+import { useSelector } from "react-redux";
 const Header = () => {
   const [isToggled, setToggled] = useState(false);
   const toggleTrueFalse = () => {
     setToggled(!isToggled);
   };
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const numberOfItems =
+    cartItems.reduce((acc, item) => acc * 1 + item.qty * 1, 0) * 1;
 
   return (
     <Fragment>
@@ -21,7 +27,8 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Button onClick={() => toggleTrueFalse()}>
-          <i className="fas fa-shopping-cart"></i>Carrito
+          <i className="fas fa-shopping-cart"></i>
+          Carrito{numberOfItems > 0 ? "(" + numberOfItems + ")" : ""}
         </Button>
         <ul></ul>
       </Navbar>
